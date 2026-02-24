@@ -1,0 +1,35 @@
+class Solution {
+  public:
+vector<int> row = {-1, 1, 0, 0, -1, -1, 1, 1};
+vector<int> col = {0, 0, -1, 1, -1, 1, -1, 1};
+ void dfs(int r, int c, vector<vector<char>>&grid, vector<vector<bool>>&visited){
+    int n = grid.size();
+    int m = grid[0].size();
+     if (r < 0 || c < 0 || r >= n || c >= m)
+    return;
+    if (visited[r][c] || grid[r][c] != 'L')
+    return;
+    visited[r][c]=true;
+    for(int i=0 ;i<8 ;i++){
+        int newr= r+ row[i];
+        int newc= c+col[i];
+        dfs(newr, newc, grid,visited);
+    }
+ }
+    int countIslands(vector<vector<char>>& grid) {
+        // Code here
+        int n= grid.size();
+        int m= grid[0].size();
+        int ans=0;
+        vector<vector<bool>>visited(n, vector<bool>(m,false));
+        for(int i=0 ;i<grid.size();i++){
+            for(int j=0;j<m ;j++){
+                if(!visited[i][j] && grid[i][j]=='L'){
+                ans++;
+                dfs(i,j,grid,visited);
+    }        }
+        }
+        return ans;
+        
+    }
+};
